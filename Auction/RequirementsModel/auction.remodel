@@ -1,0 +1,623 @@
+UseCaseModel Auction {
+
+	UC::createCat definedBySSD(CreateCatSSD) relatedService(CreateCatService)
+	UC::createPlayer definedBySSD(CreatePlayerSSD) relatedService(CreatePlayerService)
+	UC::createAuction definedBySSD(CreateAuctionSSD) relatedService(CreateAuctionService)
+	UC::bidOnSaleAuction definedBySSD(BidOnSaleAuctionSSD) relatedService(BidOnSaleAuctionService)
+	UC::endAuction definedBySSD(EndAuctionSSD) relatedService(EndAuctionService)
+	UC::bidOnSiringAuction definedBySSD(BidOnSiringAuctionSSD) relatedService(BidOnSiringAuctionService)
+	UC::endSiring definedBySSD(EndSiringSSD) relatedService(EndSiringService)
+
+	Actor Administrator {
+		createCat
+		createPlayer
+	}
+
+	Actor Player {
+		createAuction
+		bidOnSaleAuction
+		endAuction
+		bidOnSiringAuction
+		endSiring
+	}
+
+	Interaction CreatePlayerSSD {
+
+		[Participants: Administrator CreatePlayerService]
+
+		CallMessage::CreatePlayerSSDCallMessage1(createPlayer CreatePlayerSSDCallMessage1SendingEnd -> CreatePlayerSSDExecution1StartEnd)
+		ReturnMessage::CreatePlayerSSDCallMessage1Return(CreatePlayerSSDExecution1FinishEnd -> CreatePlayerSSDCallMessage1ReturnReceivingEnd CreatePlayerSSDCallMessage1)
+
+		Execution::CreatePlayerSSDExecution1(CreatePlayerService CreatePlayerSSDExecution1StartEnd CreatePlayerSSDExecution1FinishEnd)
+
+		MessageEnd::CreatePlayerSSDCallMessage1SendingEnd(Administrator CreatePlayerSSDCallMessage1)
+		ExecutionEnd::CreatePlayerSSDExecution1StartEnd(CreatePlayerService CreatePlayerSSDExecution1)
+		ExecutionEnd::CreatePlayerSSDExecution1FinishEnd(CreatePlayerService CreatePlayerSSDExecution1)
+		MessageEnd::CreatePlayerSSDCallMessage1ReturnReceivingEnd(Administrator CreatePlayerSSDCallMessage1Return)
+
+	}
+
+	Interaction CreateCatSSD {
+
+		[Participants: Administrator CreateCatService]
+
+		CallMessage::CreateCatSSDCallMessage1(createCat CreateCatSSDCallMessage1SendingEnd -> CreateCatSSDExecution1StartEnd)
+		ReturnMessage::CreateCatSSDCallMessage1Return(CreateCatSSDExecution1FinishEnd -> CreateCatSSDCallMessage1ReturnReceivingEnd CreateCatSSDCallMessage1)
+
+		Execution::CreateCatSSDExecution1(CreateCatService CreateCatSSDExecution1StartEnd CreateCatSSDExecution1FinishEnd)
+
+		MessageEnd::CreateCatSSDCallMessage1SendingEnd(Administrator CreateCatSSDCallMessage1)
+		ExecutionEnd::CreateCatSSDExecution1StartEnd(CreateCatService CreateCatSSDExecution1)
+		ExecutionEnd::CreateCatSSDExecution1FinishEnd(CreateCatService CreateCatSSDExecution1)
+		MessageEnd::CreateCatSSDCallMessage1ReturnReceivingEnd(Administrator CreateCatSSDCallMessage1Return)
+
+	}
+
+	Interaction CreateAuctionSSD {
+
+		[Participants: Player CreateAuctionService]
+
+		CallMessage::CreateAuctionSSDCallMessage1(createAuction CreateAuctionSSDCallMessage1SendingEnd -> CreateAuctionSSDExecution1StartEnd)
+		ReturnMessage::CreateAuctionSSDCallMessage1Return(CreateAuctionSSDExecution1FinishEnd -> CreateAuctionSSDCallMessage1ReturnReceivingEnd CreateAuctionSSDCallMessage1)
+
+		Execution::CreateAuctionSSDExecution1(CreateAuctionService CreateAuctionSSDExecution1StartEnd CreateAuctionSSDExecution1FinishEnd)
+
+		MessageEnd::CreateAuctionSSDCallMessage1SendingEnd(Player CreateAuctionSSDCallMessage1)
+		ExecutionEnd::CreateAuctionSSDExecution1StartEnd(CreateAuctionService CreateAuctionSSDExecution1)
+		ExecutionEnd::CreateAuctionSSDExecution1FinishEnd(CreateAuctionService CreateAuctionSSDExecution1)
+		MessageEnd::CreateAuctionSSDCallMessage1ReturnReceivingEnd(Player CreateAuctionSSDCallMessage1Return)
+
+	}
+
+	Interaction BidOnSaleAuctionSSD {
+
+		[Participants: Player BidOnSaleAuctionService]
+
+		CallMessage::BidOnSaleAuctionSSDCallMessage1(checkSaleAuctions BidOnSaleAuctionSSDCallMessage1SendingEnd -> BidOnSaleAuctionSSDExecution1StartEnd)
+		ReturnMessage::BidOnSaleAuctionSSDCallMessage1Return(BidOnSaleAuctionSSDExecution1FinishEnd -> BidOnSaleAuctionSSDCallMessage1ReturnReceivingEnd BidOnSaleAuctionSSDCallMessage1)
+		CallMessage::BidOnSaleAuctionSSDCallMessage3(chooseOneSale BidOnSaleAuctionSSDCallMessage3SendingEnd -> BidOnSaleAuctionSSDExecution2StartEnd)
+		ReturnMessage::BidOnSaleAuctionSSDCallMessage3Return(BidOnSaleAuctionSSDExecution2FinishEnd -> BidOnSaleAuctionSSDCallMessage3ReturnReceivingEnd BidOnSaleAuctionSSDCallMessage3)
+		CallMessage::BidOnSaleAuctionSSDCallMessage5(bidOnSaleAuction BidOnSaleAuctionSSDCallMessage5SendingEnd -> BidOnSaleAuctionSSDExecution3StartEnd)
+		ReturnMessage::BidOnSaleAuctionSSDCallMessage5Return(BidOnSaleAuctionSSDExecution3FinishEnd -> BidOnSaleAuctionSSDCallMessage5ReturnReceivingEnd BidOnSaleAuctionSSDCallMessage5)
+
+		Execution::BidOnSaleAuctionSSDExecution1(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution1StartEnd BidOnSaleAuctionSSDExecution1FinishEnd)
+		Execution::BidOnSaleAuctionSSDExecution2(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution2StartEnd BidOnSaleAuctionSSDExecution2FinishEnd)
+		Execution::BidOnSaleAuctionSSDExecution3(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution3StartEnd BidOnSaleAuctionSSDExecution3FinishEnd)
+
+		MessageEnd::BidOnSaleAuctionSSDCallMessage1SendingEnd(Player BidOnSaleAuctionSSDCallMessage1)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution1StartEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution1)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution1FinishEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution1)
+		MessageEnd::BidOnSaleAuctionSSDCallMessage1ReturnReceivingEnd(Player BidOnSaleAuctionSSDCallMessage1Return)
+		MessageEnd::BidOnSaleAuctionSSDCallMessage3SendingEnd(Player BidOnSaleAuctionSSDCallMessage3)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution2StartEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution2)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution2FinishEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution2)
+		MessageEnd::BidOnSaleAuctionSSDCallMessage3ReturnReceivingEnd(Player BidOnSaleAuctionSSDCallMessage3Return)
+		MessageEnd::BidOnSaleAuctionSSDCallMessage5SendingEnd(Player BidOnSaleAuctionSSDCallMessage5)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution3StartEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution3)
+		ExecutionEnd::BidOnSaleAuctionSSDExecution3FinishEnd(BidOnSaleAuctionService BidOnSaleAuctionSSDExecution3)
+		MessageEnd::BidOnSaleAuctionSSDCallMessage5ReturnReceivingEnd(Player BidOnSaleAuctionSSDCallMessage5Return)
+
+	}
+
+	Interaction BidOnSiringAuctionSSD {
+
+		[Participants: Player BidOnSiringAuctionService]
+
+		CallMessage::BidOnSiringAuctionSSDCallMessage1(checkSiringAuctions BidOnSiringAuctionSSDCallMessage1SendingEnd -> BidOnSiringAuctionSSDExecution1StartEnd)
+		ReturnMessage::BidOnSiringAuctionSSDCallMessage1Return(BidOnSiringAuctionSSDExecution1FinishEnd -> BidOnSiringAuctionSSDCallMessage1ReturnReceivingEnd BidOnSiringAuctionSSDCallMessage1)
+		CallMessage::BidOnSiringAuctionSSDCallMessage3(chooseOneSiring BidOnSiringAuctionSSDCallMessage3SendingEnd -> BidOnSiringAuctionSSDExecution2StartEnd)
+		ReturnMessage::BidOnSiringAuctionSSDCallMessage3Return(BidOnSiringAuctionSSDExecution2FinishEnd -> BidOnSiringAuctionSSDCallMessage3ReturnReceivingEnd BidOnSiringAuctionSSDCallMessage3)
+		CallMessage::BidOnSiringAuctionSSDCallMessage5(bidOnSiringAuction BidOnSiringAuctionSSDCallMessage5SendingEnd -> BidOnSiringAuctionSSDExecution3StartEnd)
+		ReturnMessage::BidOnSiringAuctionSSDCallMessage5Return(BidOnSiringAuctionSSDExecution3FinishEnd -> BidOnSiringAuctionSSDCallMessage5ReturnReceivingEnd BidOnSiringAuctionSSDCallMessage5)
+
+		Execution::BidOnSiringAuctionSSDExecution1(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution1StartEnd BidOnSiringAuctionSSDExecution1FinishEnd)
+		Execution::BidOnSiringAuctionSSDExecution2(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution2StartEnd BidOnSiringAuctionSSDExecution2FinishEnd)
+		Execution::BidOnSiringAuctionSSDExecution3(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution3StartEnd BidOnSiringAuctionSSDExecution3FinishEnd)
+
+		MessageEnd::BidOnSiringAuctionSSDCallMessage1SendingEnd(Player BidOnSiringAuctionSSDCallMessage1)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution1StartEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution1)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution1FinishEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution1)
+		MessageEnd::BidOnSiringAuctionSSDCallMessage1ReturnReceivingEnd(Player BidOnSiringAuctionSSDCallMessage1Return)
+		MessageEnd::BidOnSiringAuctionSSDCallMessage3SendingEnd(Player BidOnSiringAuctionSSDCallMessage3)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution2StartEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution2)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution2FinishEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution2)
+		MessageEnd::BidOnSiringAuctionSSDCallMessage3ReturnReceivingEnd(Player BidOnSiringAuctionSSDCallMessage3Return)
+		MessageEnd::BidOnSiringAuctionSSDCallMessage5SendingEnd(Player BidOnSiringAuctionSSDCallMessage5)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution3StartEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution3)
+		ExecutionEnd::BidOnSiringAuctionSSDExecution3FinishEnd(BidOnSiringAuctionService BidOnSiringAuctionSSDExecution3)
+		MessageEnd::BidOnSiringAuctionSSDCallMessage5ReturnReceivingEnd(Player BidOnSiringAuctionSSDCallMessage5Return)
+
+	}
+
+	Interaction EndAuctionSSD {
+
+		[Participants: Player EndAuctionService]
+
+		CallMessage::EndAuctionSSDCallMessage1(checkOwnedAuctions EndAuctionSSDCallMessage1SendingEnd -> EndAuctionSSDExecution1StartEnd)
+		ReturnMessage::EndAuctionSSDCallMessage1Return(EndAuctionSSDExecution1FinishEnd -> EndAuctionSSDCallMessage1ReturnReceivingEnd EndAuctionSSDCallMessage1)
+		CallMessage::EndAuctionSSDCallMessage3(chooseOneAuction EndAuctionSSDCallMessage3SendingEnd -> EndAuctionSSDExecution2StartEnd)
+		ReturnMessage::EndAuctionSSDCallMessage3Return(EndAuctionSSDExecution2FinishEnd -> EndAuctionSSDCallMessage3ReturnReceivingEnd EndAuctionSSDCallMessage3)
+		CallMessage::EndAuctionSSDCallMessage5(endTheAuction EndAuctionSSDCallMessage5SendingEnd -> EndAuctionSSDExecution3StartEnd)
+		ReturnMessage::EndAuctionSSDCallMessage5Return(EndAuctionSSDExecution3FinishEnd -> EndAuctionSSDCallMessage5ReturnReceivingEnd EndAuctionSSDCallMessage5)
+
+		Execution::EndAuctionSSDExecution1(EndAuctionService EndAuctionSSDExecution1StartEnd EndAuctionSSDExecution1FinishEnd)
+		Execution::EndAuctionSSDExecution2(EndAuctionService EndAuctionSSDExecution2StartEnd EndAuctionSSDExecution2FinishEnd)
+		Execution::EndAuctionSSDExecution3(EndAuctionService EndAuctionSSDExecution3StartEnd EndAuctionSSDExecution3FinishEnd)
+
+		MessageEnd::EndAuctionSSDCallMessage1SendingEnd(Player EndAuctionSSDCallMessage1)
+		ExecutionEnd::EndAuctionSSDExecution1StartEnd(EndAuctionService EndAuctionSSDExecution1)
+		ExecutionEnd::EndAuctionSSDExecution1FinishEnd(EndAuctionService EndAuctionSSDExecution1)
+		MessageEnd::EndAuctionSSDCallMessage1ReturnReceivingEnd(Player EndAuctionSSDCallMessage1Return)
+		MessageEnd::EndAuctionSSDCallMessage3SendingEnd(Player EndAuctionSSDCallMessage3)
+		ExecutionEnd::EndAuctionSSDExecution2StartEnd(EndAuctionService EndAuctionSSDExecution2)
+		ExecutionEnd::EndAuctionSSDExecution2FinishEnd(EndAuctionService EndAuctionSSDExecution2)
+		MessageEnd::EndAuctionSSDCallMessage3ReturnReceivingEnd(Player EndAuctionSSDCallMessage3Return)
+		MessageEnd::EndAuctionSSDCallMessage5SendingEnd(Player EndAuctionSSDCallMessage5)
+		ExecutionEnd::EndAuctionSSDExecution3StartEnd(EndAuctionService EndAuctionSSDExecution3)
+		ExecutionEnd::EndAuctionSSDExecution3FinishEnd(EndAuctionService EndAuctionSSDExecution3)
+		MessageEnd::EndAuctionSSDCallMessage5ReturnReceivingEnd(Player EndAuctionSSDCallMessage5Return)
+
+	}
+
+	Interaction EndSiringSSD {
+
+		[Participants: Player EndSiringService]
+
+		CallMessage::EndSiringSSDCallMessage1(checkPairedCats EndSiringSSDCallMessage1SendingEnd -> EndSiringSSDExecution1StartEnd)
+		ReturnMessage::EndSiringSSDCallMessage1Return(EndSiringSSDExecution1FinishEnd -> EndSiringSSDCallMessage1ReturnReceivingEnd EndSiringSSDCallMessage1)
+		CallMessage::EndSiringSSDCallMessage3(chooseOnePairedCat EndSiringSSDCallMessage3SendingEnd -> EndSiringSSDExecution2StartEnd)
+		ReturnMessage::EndSiringSSDCallMessage3Return(EndSiringSSDExecution2FinishEnd -> EndSiringSSDCallMessage3ReturnReceivingEnd EndSiringSSDCallMessage3)
+		CallMessage::EndSiringSSDCallMessage5(endThePairedCat EndSiringSSDCallMessage5SendingEnd -> EndSiringSSDExecution3StartEnd)
+		ReturnMessage::EndSiringSSDCallMessage5Return(EndSiringSSDExecution3FinishEnd -> EndSiringSSDCallMessage5ReturnReceivingEnd EndSiringSSDCallMessage5)
+
+		Execution::EndSiringSSDExecution1(EndSiringService EndSiringSSDExecution1StartEnd EndSiringSSDExecution1FinishEnd)
+		Execution::EndSiringSSDExecution2(EndSiringService EndSiringSSDExecution2StartEnd EndSiringSSDExecution2FinishEnd)
+		Execution::EndSiringSSDExecution3(EndSiringService EndSiringSSDExecution3StartEnd EndSiringSSDExecution3FinishEnd)
+
+		MessageEnd::EndSiringSSDCallMessage1SendingEnd(Player EndSiringSSDCallMessage1)
+		ExecutionEnd::EndSiringSSDExecution1StartEnd(EndSiringService EndSiringSSDExecution1)
+		ExecutionEnd::EndSiringSSDExecution1FinishEnd(EndSiringService EndSiringSSDExecution1)
+		MessageEnd::EndSiringSSDCallMessage1ReturnReceivingEnd(Player EndSiringSSDCallMessage1Return)
+		MessageEnd::EndSiringSSDCallMessage3SendingEnd(Player EndSiringSSDCallMessage3)
+		ExecutionEnd::EndSiringSSDExecution2StartEnd(EndSiringService EndSiringSSDExecution2)
+		ExecutionEnd::EndSiringSSDExecution2FinishEnd(EndSiringService EndSiringSSDExecution2)
+		MessageEnd::EndSiringSSDCallMessage3ReturnReceivingEnd(Player EndSiringSSDCallMessage3Return)
+		MessageEnd::EndSiringSSDCallMessage5SendingEnd(Player EndSiringSSDCallMessage5)
+		ExecutionEnd::EndSiringSSDExecution3StartEnd(EndSiringService EndSiringSSDExecution3)
+		ExecutionEnd::EndSiringSSDExecution3FinishEnd(EndSiringService EndSiringSSDExecution3)
+		MessageEnd::EndSiringSSDCallMessage5ReturnReceivingEnd(Player EndSiringSSDCallMessage5Return)
+
+	}
+
+	Service AuctionSystem {
+
+	}
+
+	Service ThirdPartyServices {
+
+	}
+
+	Service CreatePlayerService {
+
+		[Operation]
+		createPlayer(playerId, balance)
+
+	}
+
+	Service CreateCatService {
+
+		[Operation]
+		createCat(catId, ownerId)
+
+	}
+
+	Service CreateAuctionService {
+
+		[Operation]
+		createAuction(type, creatorId, catId, startPrice)
+
+	}
+
+	Service BidOnSaleAuctionService {
+
+		[Operation]
+		checkSaleAuctions()
+		chooseOneSale(catId)
+		bidOnSaleAuction(playerId, quantity)
+
+		[TempProperty]
+		SaleAuctions : Auction
+		CurrentAuction : Auction
+		CurrentHighestBid : Real
+		Quantity : Real
+
+	}
+
+	Service BidOnSiringAuctionService {
+
+		[Operation]
+		checkSiringAuctions()
+		chooseOneSiring(catId)
+		bidOnSiringAuction(playerId, mateId, quantity)
+
+		[TempProperty]
+		SiringAuctions : Auction
+		CurrentAuction : Auction
+		CurrentHighestBid : Real
+		Quantity : Real
+
+	}
+
+	Service EndAuctionService {
+
+		[Operation]
+		checkOwnedAuctions(playerId)
+		chooseOneAuction(catId)
+		endTheAuction()
+
+		[TempProperty]
+		OwnedAuctions : Auction
+		CurrentSeller : Player
+		CurrentAuction : Auction
+		CurrentCat : Cat
+		CurrentHighestBid : Real
+		MateId : Integer
+		Type : Integer
+
+	}
+
+	Service EndSiringService {
+
+		[Operation]
+		checkPairedCats(playerId)
+		chooseOnePairedCat(catId)
+		endThePairedCat()
+
+		[TempProperty]
+		PairedCats : Cat
+		ChoosedCat : Cat
+		FriendId : Integer
+
+	}
+
+	Contract CreatePlayerService::createPlayer(playerId : Integer, balance : Real) : Boolean {
+
+		definition:
+			palyer:Player = Player.allInstance()->any(pla:Player | pla.PlayerId = playerId)
+
+		precondition:
+			player.oclIsUndefined() = true
+
+		postcondition:
+			let pla:Player in
+			pla.oclIsNew() and
+			pla.PlayeId = playerId and
+			pla.Balance = balance and
+			Player.allInstance()->includes(pla) and
+			result = true
+
+	}
+
+	Contract CreateCatService::createCat(catId : Integer, ownerId : Integer) : Boolean {
+
+		definition:
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId)
+
+		precondition:
+			cat.oclIsUndefined() = true
+
+		postcondition:
+			let c:Cat in
+			c.oclIsNew() and
+			c.CatId = catId and
+			c.OwnerId = ownerId and
+			Cat.allInstance()->includes(c) and
+			result = true
+	}
+
+	Contract CreateAuctionService::createAuction(type:Integer, creatorId:Integer, catId:Integer, startPrice:Real) : Boolean {
+
+		definition:
+			auction:Auction = Auction.allInstance()->any(a:Auction | a.CatId = catId and a.Ended = false),
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId),
+			player:Player = Player.allInstance()->any(p:Player | p.PlayerId = creatorId)
+
+		precondition:
+			auction.oclIsUndefined() = true and
+			cat.oclIsUndefined() = false and
+			player.oclIsUndefined() = false and
+			cat.OwnerId = creatorId and
+			cat.MateId = 0 and
+			startPrice > 0
+
+		postcondition:
+			let a:Auction in
+			a.oclIsNew() and
+			a.Type = type and
+			a.CreatorId = creatorId and
+			a.CatId = catId and
+			a.StartPrice = startPrice and
+			Auction.allInstance()->includes(a) and
+			result = true
+	}
+
+	Contract BidOnSaleAuctionService::checkSaleAuctions() : Set(Auction) {
+
+		definition:
+			auctions:Set(Auction) = Auction.allInstance()->select(a:Auction | a.Type =  1 and a.Ended = false)
+
+		precondition:
+			true
+
+		postcondition:
+			self.SaleAuctions = auctions and
+			result = auctions
+	}
+
+	Contract BidOnSaleAuctionService::chooseOneSale(catId : Integer) : Auction {
+
+		definition:
+			auction:Auction = self.SaleAuctions->any(a:Auction | a.CatId = catId),
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId)
+
+		precondition:
+			cat.oclIsUndefined() = false and
+			auction.oclIsUndefined() = false
+
+		postcondition:
+			self.CurrentAuction = auction and
+			self.CurrentHighestBid = auction.HighestBid and
+			result = auction
+	}
+
+	Contract BidOnSaleAuctionService::bidOnSaleAuction(playerId : Integer, quantity : Real) : Boolean {
+
+		definition:
+			currentBidder:Player = Player.allInstance()->any(p:Player | p.PlayerId = playerId),
+			lastBidder:Player = Player.allInstance()->any(pla:Player | pla.PlayerId = self.CurrentAuction.HighestBidderId)
+
+		precondition:
+			currentBidder.oclIsUndefined() = false and
+			self.CurrentAuction.CreatorId <> palyerId and
+			quantity >= self.CurrentAuction.StartPrice and
+			quantity > self.CurrentHighestBid
+
+		postcondition:
+			Quantity = quantity and
+			if
+				self.CurrentHighestBid > 0
+			then
+				lastBidder.Balance = lastBidder.Balance@pre + self.CurrentHighestBid
+			endif and
+			self.CurrentAuction.HighestBidderId = playerId and
+			self.CurrentAuction.HighestBid = quantity and
+			currentBidder.Balance = currentBidder.Balance@pre - quantity and
+			result = true
+
+	}
+
+	Contract BidOnSiringAuctionService::checkSiringAuctions() : Set(Auction) {
+
+		definition:
+			auctions:Set(Auction) = Auction.allInstance()->select(a:Auction | a.Type =  2 and a.Ended = false)
+
+		precondition:
+			true
+
+		postcondition:
+			self.SiringAuctions = auctions and
+			result = auctions
+	}
+
+	Contract BidOnSiringAuctionService::chooseOneSiring(catId : Integer) : Auction {
+
+		definition:
+			auction:Auction = self.SiringAuctions->any(a:Auction | a.CatId = catId),
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId)
+
+		precondition:
+			cat.oclIsUndefined() = false and
+			auction.oclIsUndefined() = false
+
+		postcondition:
+			self.CurrentAuction = auction and
+			self.CurrentHighestBid = auction.HighestBid and
+			result = auction
+	}
+
+	Contract BidOnSiringAuctionService::bidOnSiringAuction(playerId : Integer, mateId : Integer, quantity : Real) : Boolean {
+
+		definition:
+			currentBidder:Player = Player.allInstance()->any(p:Player | p.PlayerId = playerId),
+			lastBidder:Player = Player.allInstance()->any(pla:Player | pla.PlayerId = self.CurrentAuction.HighestBidderId),
+			mateCat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = mateId)
+
+		precondition:
+			currentBidder.oclIsUndefined() = false and
+			mateCat.oclIsUndefined() = false and
+			mateCat.OwnerId = playerId and
+			self.CurrentAuction.CreatorId <> palyerId and
+			quantity >= self.CurrentAuction.StartPrice and
+			quantity > self.CurrentHighestBid
+
+		postcondition:
+			self.Quantity = quantity and
+			if
+				self.CurrentHighestBid > 0
+			then
+				lastBidder.Balance = lastBidder.Balance@pre + self.CurrentHighestBid
+			endif and
+			self.CurrentAuction.HighestBidderId = playerId and
+			self.CurrentAuction.HighestBid = quantity and
+			self.CurrentAuction.SiringWithId = mateId and
+			currentBidder.Balance = currentBidder.Balance@pre - quantity and
+			result = true
+	}
+
+	Contract EndAuctionService::checkOwnedAuctions(playerId : Integer) : Set(Auction) {
+
+		definition:
+			player:Player = Player.allInstance()->any(p:Player | p.PlayerId = playerId),
+			auctions:Set(Auction) = Auction.allInstance()->select(a:Auction | a.CreatorId = playerId and a.Ended = false)
+
+		precondition:
+			player.oclIsUndefined() = false
+
+		postcondition:
+			self.OwnedAuctions = auctions and
+			self.CurrentSeller = player and
+			result = auctions
+
+	}
+
+	Contract EndAuctionService::chooseOneAuction(catId : Integer) : Auction {
+
+		definition:
+			auction:Auction = self.OwnedAuctions->any(a:Auction | a.CatId = catId),
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId)
+
+		precondition:
+			cat.oclIsUndefined() = false and
+			auction.oclIsUndefined() = false and
+			auction.CreatorId = self.CurrentSeller.PlayerId and
+			auction.Ended = false
+
+		postcondition:
+			self.CurrentCat = cat and
+			self.CurrentAuction = auction and
+			self.CurrentHighestBid = auction.HighestBid and
+			self.MateId = auction.SiringWithId and
+			result = auction
+
+	}
+
+	Contract EndAuctionService::endTheAuction() : Boolean {
+
+		definition:
+			seller:Player = Player.allInstance()->any(p:Player | p.PlayerId = self.CurrentAuction.CreatorId),
+			mate:Cat = Cat.allInstance()->any(c:Cat | c.CatId = self.MateId)
+
+		precondition:
+			seller.oclIsUndefined() = false
+
+		postcondition:
+			self.Type = self.CurrentAuction.Type and
+			if
+				self.CurrentAuction.Type = 1 and
+				self.CurrentHighestBid > 0
+			then
+				seller.Balance = seller.Balance@pre + self.CurrentHighestBid and
+				self.CurrentCat.OwnerId = self.CurrentAuction.HighestBidderId
+			endif and
+			if
+				self.CurrentAuction.Type = 1 and
+				self.CurrentHighestBid = 0
+			then
+				true
+			endif and
+			if
+				self.CurrentAuction.Type = 2 and
+				self.CurrentHighestBid > 0
+			then
+				seller.Balance = seller.Balance@pre + self.CurrentHighestBid and
+				self.CurrentCat.MateId = mate.CatId and
+				mate.MateId = self.CurrentCat.CatId
+			endif and
+			if
+				self.CurrentAuction.Type = 2 and
+				self.CurrentHighestBid = 0
+			then
+				true
+			endif and
+			self.CurrentAuction.Ended = true and
+			result = true
+	}
+
+	Contract EndSiringService::checkPairedCats(playerId : Integer) : Set(Cat) {
+
+		definition:
+			cats:Set(Cat) = Cat.allInstance()->select(c:Cat | c.OwnerId = playerId and c.MateId > 0),
+			player:Player = Player.allInstance()->any(p:Player | p.PlayerId = playerId)
+
+		precondition:
+			player.oclIsUndefined() = false
+
+		postcondition:
+			self.PairedCats = cats and
+			self.CurrentPlayer = player and
+			result = cats
+
+	}
+
+	Contract EndSiringService::chooseOnePairedCat(catId : Integer) : Cat {
+
+		definition:
+			cat:Cat = Cat.allInstance()->any(c:Cat | c.CatId = catId)
+
+		precondition:
+			cat.oclIsUndefined() = false and
+			cat.OwnerId = self.CurrentPlayer.PlayerId and
+			cat.MateId > 0
+
+		postcondition:
+			self.ChoosedCat = cat and
+			self.FriendId = cat.MateId and
+			result = cat
+
+	}
+
+	Contract EndSiringService::endThePairedCat() : Boolean {
+
+		definition:
+			mate:Cat = Cat.allInstance()->any(c:Cat | c.CatId = self.FriendId)
+
+		precondition:
+			mate.oclIsUndefined() = false
+
+		postcondition:
+			self.ChoosedCat.MateId = 0 and
+			mate.MateId = 0 and
+			result = true
+
+	}
+
+}
+
+DomainModel Auction {
+
+	Entity Player {
+		PlayerId : Integer
+		Balance : Real
+
+		[Refer]
+		OwnedCats : Cat* Association
+		OwnedAuctions : Auction* Association
+	}
+
+	Entity Auction {
+		Type : Integer
+		CatId : Integer
+		CreatorId : Integer
+		HighestBidderId : Integer
+		HighestBid : Real
+		Ended : Boolean
+		StartPrice : Real
+		SiringWithId : Integer
+
+		[Refer]
+		BelongedPlayer : Player ! Association
+		AttachedCat : Cat Association
+	}
+
+	Entity Cat {
+		CatId : Integer
+		OwnerId : Integer
+		MateId : Integer
+
+		[Refer]
+		BelongedPlayer : Player ! Association
+		AttachedAuction : Auction ! Association
+	}
+
+}
+
